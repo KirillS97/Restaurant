@@ -11,7 +11,7 @@ class ViewControllerOfRegistartion: UIViewController {
     var logo: UIImageView!
     
     // Метки с текстом
-    var labelSignIn, labelEmail, labelPassword, labelNotice: UILabel!
+    var labelSignIn, labelEmail, labelPassword, labelNotice, enterAsAGuestLabel: UILabel!
     
     // Текстовые поля
     var emailTextField, passwordTextField: UITextField!
@@ -19,14 +19,24 @@ class ViewControllerOfRegistartion: UIViewController {
     // Кнопка "Войти"
     var buttonEnter: UIButton!
     
-    // Кнопка "Продолжить как гость"
-    var buttonEnterForGuest: UIButton!
+    // Кнопка "Создать аккаунт"
+    var registrationButton: UIButton!
+    
+    // Переключатель "Продолжить, как гость"
+    var guestSwitch: UISwitch!
     
     // Кнопка с глазом для сокрытия пароля в текстовом поле
     var buttonForHidePassword: UIButton!
     
+    // Хранилище зарегестрированных пользователей
+    var usersStorage: UsersStorageProtocol!
+    
     //Библиотека зарегестрированных пользователей
-    var registeredUsers = RegisteredUsers()
+    var registeredUsers: [String: User] = [:] {
+        didSet {
+            usersStorage.saveRegisteredUsers(registeredUsers: self.registeredUsers)
+        }
+    }
     
     /*------------------------------------------------------------------------------*/
     /*------------------------------------------------------------------------------*/
@@ -41,15 +51,21 @@ class ViewControllerOfRegistartion: UIViewController {
         
         // MARK: Добавление нового пользователя
         /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+        self.usersStorage = UsersStorage()
         
-        self.registeredUsers.registerUser(firstName: "Tim", lastName: "Cook", email: "TimCook@apple.com", password: "Apple")
+        registerUser(firstName: "Kirill",
+                     lastName: "Serov",
+                     email: "123",
+                     password: "123",
+                     users: &self.registeredUsers)
+        
+        self.registeredUsers = self.usersStorage.loadRegisteredUsers()
         /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
         
         
         
         // MARK: Настройка корневогого "View"
         /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-        
         self.view.backgroundColor = viewColor
         
         let widthOfRootView = self.view.frame.width
@@ -103,11 +119,11 @@ class ViewControllerOfRegistartion: UIViewController {
         
         // Позиционирование объекта кнопки на сцене с помощью ограничений
         NSLayoutConstraint.activate([
+            self.buttonEnter.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor,
+                                                   constant: -(50 * widthOfRootView / iPhone14SceneWidth)),
             self.buttonEnter.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.buttonEnter.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor,
-                                                   constant: (50 * widthOfRootView / iPhone14SceneWidth)),
             self.buttonEnter.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,
-                                                     constant: -(100 * heightOfRootView / iPhone14SceneHeight))
+                                                     constant: -(80 * heightOfRootView / iPhone14SceneHeight))
         ])
         
         // Добавление обработчика нажатия на кнопку
@@ -116,31 +132,32 @@ class ViewControllerOfRegistartion: UIViewController {
         
         
         
-        // MARK: Настройка кнопки "Продолжить как гость"
+        // MARK: Настройка кнопки "Создать аккаут"
         /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
         
         // Инициализация объекта
-        self.buttonEnterForGuest = UIButton()
+        self.registrationButton = UIButton()
         
         // Настройка внешнего вида кнопки
-        createButton(rootView: self.view, button: self.buttonEnterForGuest, title: "Продолжить как гость")
+        createButton(rootView: self.view, button: self.registrationButton, title: "Создать аккаунт")
         
         // Добавление кнопки на родительский вью
-        self.view.addSubview(self.buttonEnterForGuest)
+        self.view.addSubview(self.registrationButton)
         
         // Отключение автоматических ограничений
-        self.buttonEnterForGuest.translatesAutoresizingMaskIntoConstraints = false
+        self.registrationButton.translatesAutoresizingMaskIntoConstraints = false
         
         // Позиционирование объекта кнопки на сцене с помощью ограничений
         NSLayoutConstraint.activate([
-            self.buttonEnterForGuest.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.buttonEnterForGuest.leftAnchor.constraint(equalTo: self.buttonEnter.leftAnchor),
-            self.buttonEnterForGuest.bottomAnchor.constraint(equalTo: self.buttonEnter.topAnchor,
+            self.registrationButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.registrationButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor,
+                                                   constant: (50 * widthOfRootView / iPhone14SceneWidth)),
+            self.registrationButton.bottomAnchor.constraint(equalTo: self.buttonEnter.topAnchor,
                                                      constant: -(20 * heightOfRootView / iPhone14SceneHeight))
         ])
         
         // Добавление обработчика нажатия на кнопку
-        self.buttonEnterForGuest.addTarget(self, action: #selector(tryEnter(sender:)), for: .touchUpInside)
+        self.registrationButton.addTarget(self, action: #selector(registrationButtonHandler(sender:)), for: .touchUpInside)
         /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
         
         
@@ -218,11 +235,9 @@ class ViewControllerOfRegistartion: UIViewController {
         NSLayoutConstraint.activate([
             self.emailTextField.leftAnchor.constraint(equalTo: self.labelEmail.leftAnchor),
             self.emailTextField.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor,
-                                                       constant: -(50 * widthOfRootView / iPhone14SceneWidth)
-                                                      ),
+                                                       constant: -(50 * widthOfRootView / iPhone14SceneWidth)),
             self.emailTextField.topAnchor.constraint(equalTo: self.labelEmail.bottomAnchor,
-                                                     constant: (10 * heightOfRootView / iPhone14SceneHeight)
-                                                    )
+                                                     constant: (10 * heightOfRootView / iPhone14SceneHeight))
         ])
         
         // Добавление обработчика нажатия на текстовое поле
@@ -234,7 +249,6 @@ class ViewControllerOfRegistartion: UIViewController {
         
         // MARK: Настройка метки "Пароль"
         /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-        
         // Инициализация объекта
         self.labelPassword = UILabel()
         
@@ -251,8 +265,7 @@ class ViewControllerOfRegistartion: UIViewController {
         NSLayoutConstraint.activate([
             self.labelPassword.leftAnchor.constraint(equalTo: self.labelEmail.leftAnchor),
             self.labelPassword.topAnchor.constraint(equalTo: self.emailTextField.bottomAnchor,
-                                                    constant: (20 * heightOfRootView / iPhone14SceneHeight)
-                                                   )
+                                                    constant: (10 * heightOfRootView / iPhone14SceneHeight))
         ])
         /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
         
@@ -290,6 +303,64 @@ class ViewControllerOfRegistartion: UIViewController {
         
         
         
+        // MARK: Настройка метки "Продолжить как гость"
+        /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+        // Инициализация объекта
+        self.enterAsAGuestLabel = UILabel()
+        
+        // Настройка внешнего вида метки
+        createLabel(rootView: self.view,
+                    label: self.enterAsAGuestLabel,
+                    text: "Продолжить как гость",
+                    numberOfLines: nil,
+                    fontSize: nil,
+                    fontWeight: .light,
+                    textColor: nil,
+                    isCenterTextAlignment: false)
+        
+        // Добавление метки на родительский вью
+        self.view.addSubview(self.enterAsAGuestLabel)
+        
+        // Отключение автоматических ограничений
+        self.enterAsAGuestLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Позиционирование объекта метки на сцене с помощью ограничений
+        NSLayoutConstraint.activate([
+            self.enterAsAGuestLabel.leftAnchor.constraint(equalTo: self.labelEmail.leftAnchor),
+            self.enterAsAGuestLabel.bottomAnchor.constraint(equalTo: self.registrationButton.topAnchor,
+                                                            constant: -(30 * heightOfRootView / iPhone14SceneHeight))
+        ])
+        /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+        
+        
+        
+        // MARK: Настройка переключателя "Продолжить как гость"
+        /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+        // Инициализация
+        self.guestSwitch = UISwitch()
+        
+        // Настройка цвета
+        self.guestSwitch.thumbTintColor = .white
+        self.guestSwitch.onTintColor = .systemRed
+        
+        // Перевод переключателя в выключенный режим
+        self.guestSwitch.isOn = false
+        
+        // Добавление метки на родительский вью
+        self.view.addSubview(self.guestSwitch)
+        
+        // Отключение автоматических ограничений
+        self.guestSwitch.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Позиционирование объекта метки на сцене с помощью ограничений
+        NSLayoutConstraint.activate([
+            self.guestSwitch.rightAnchor.constraint(equalTo: self.registrationButton.rightAnchor),
+            self.guestSwitch.centerYAnchor.constraint(equalTo: self.enterAsAGuestLabel.centerYAnchor)
+        ])
+        /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+        
+        
+        
         // MARK: Настройка кнопки сокрытия текста для текстового поля "Пароль"
         /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
         
@@ -303,35 +374,22 @@ class ViewControllerOfRegistartion: UIViewController {
             self.buttonForHidePassword.setImage(UIImage(systemName: "eye.slash"), for: .normal)
         }
         
-        // Установка цвета
-        self.buttonForHidePassword.tintColor = .black
+        // Установка кнопки в качестве правого графического элемента текстового поля
+        self.passwordTextField.rightView = self.buttonForHidePassword
+        self.passwordTextField.rightViewMode = .always
         
-        // Добавление кнопки на родительский вью
-        self.view.addSubview(self.buttonForHidePassword)
-        
-        // Отключение автоматических ограничений
-        self.buttonForHidePassword.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Позиционирование объекта кнопки на сцене с помощью ограничений
-        NSLayoutConstraint.activate([
-            self.buttonForHidePassword.centerYAnchor.constraint(equalTo: self.passwordTextField.centerYAnchor),
-            self.buttonForHidePassword.heightAnchor.constraint(equalTo: self.passwordTextField.heightAnchor,
-                                                               multiplier: 1
-                                                              ),
-            self.buttonForHidePassword.rightAnchor.constraint(equalTo: self.passwordTextField.rightAnchor,
-                                                              constant: -(10 * widthOfRootView / iPhone14SceneWidth)
-                                                             )
-        ])
+        // Изменения цвета кнопки
+        self.passwordTextField.rightView?.tintColor = .systemGray
         
         // Добавление обработчика нажатия на кнопку
         self.buttonForHidePassword.addTarget(self, action: #selector(hideTheText), for: .touchUpInside)
-        
+                
         /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+        
         
         
         // MARK: Настройка метки с уведомлением
         /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-        
         // Инициализация объекта
         self.labelNotice = UILabel()
         
@@ -349,8 +407,7 @@ class ViewControllerOfRegistartion: UIViewController {
             self.labelNotice.leftAnchor.constraint(equalTo: self.labelEmail.leftAnchor),
             self.labelNotice.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.labelNotice.topAnchor.constraint(equalTo: self.passwordTextField.bottomAnchor,
-                                                  constant: (30 * heightOfRootView / iPhone14SceneHeight)
-                                                 )
+                                                  constant: (10 * heightOfRootView / iPhone14SceneHeight))
         ])
         /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
         
@@ -381,14 +438,14 @@ class ViewControllerOfRegistartion: UIViewController {
     // MARK: - Переопределение метода "prepare" подготовки к переходу на другую сцену
     /*------------------------------------------------------------------------------*/
     /*------------------------------------------------------------------------------*/
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         if let VCOfReservatiion = segue.destination as? ViewControllerOfReservation {
-            VCOfReservatiion.user = registeredUsers.returnUser(email: self.emailTextField.text!, password: self.passwordTextField.text!)
+            VCOfReservatiion.user = returnUser(email: self.emailTextField.text!,
+                                               password: self.passwordTextField.text!,
+                                               users: self.registeredUsers)
         }
     }
-    
     /*------------------------------------------------------------------------------*/
     /*------------------------------------------------------------------------------*/
     
@@ -397,27 +454,47 @@ class ViewControllerOfRegistartion: UIViewController {
     // MARK: - Обработчик нажатия на кнопку "Войти"
     /*------------------------------------------------------------------------------*/
     /*------------------------------------------------------------------------------*/
-    
     @objc func tryEnter(sender: UIButton) {
         
         if sender ===  buttonEnter {
-            switch (emailTextField.text, passwordTextField.text) {
-            case let (email, password) where (email!.isEmpty) || (password!.isEmpty):
-                self.labelNotice.text = "Заполните все поля"
-            case let (email, password):
-                if !self.registeredUsers.userVerification(email: email!, password: password!) {
-                    self.labelNotice.text = "Введён неправильный Email или пароль"
-                } else {
-                    performSegue(withIdentifier: "goToVCOfReservation", sender: nil)
+            if !self.guestSwitch.isOn {
+                switch (emailTextField.text, passwordTextField.text) {
+                case let (email, password) where (email!.isEmpty) || (password!.isEmpty):
+                    self.labelNotice.text = "Заполните все поля"
+                case let (email, password):
+                    if !userVerification(email: email!, password: password!, users: self.registeredUsers) {
+                        self.labelNotice.text = "Введён неправильный Email или пароль"
+                    } else {
+                        performSegue(withIdentifier: "goToVCOfReservation", sender: nil)
+                    }
                 }
+            } else {
+                performSegue(withIdentifier: "goToVCOfReservation", sender: nil)
             }
         }
         
-        if sender === buttonEnterForGuest {
-            performSegue(withIdentifier: "goToVCOfReservation", sender: nil)
+    }
+    /*------------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------------*/
+    
+    
+    
+    // MARK: - Обработчик нажатия на кнопку "Создать аккаунт"
+    /*------------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------------*/
+    @objc func registrationButtonHandler(sender: UIButton) {
+        if sender.isEqual(self.registrationButton) {
+            if let naviController = self.navigationController {
+                let mainStoryBoard = UIStoryboard(name: "Main", bundle: .main)
+                if let vCOfCreatingAccount = mainStoryBoard.instantiateViewController(identifier: "ViewControllerOfCreatingAccount") as? ViewControllerOfCreatingAccount {
+                    vCOfCreatingAccount.usersStorage = self.usersStorage
+                    vCOfCreatingAccount.registeredUsers = self.registeredUsers
+                    vCOfCreatingAccount.delegateToTranferRegisteredUsers = self
+                    naviController.pushViewController(vCOfCreatingAccount, animated: true)
+                }
+            }
         }
     }
-    
     /*------------------------------------------------------------------------------*/
     /*------------------------------------------------------------------------------*/
     
@@ -426,7 +503,6 @@ class ViewControllerOfRegistartion: UIViewController {
     // MARK: - Обработчик нажатия на кнопку сокрытия пароля
     /*------------------------------------------------------------------------------*/
     /*------------------------------------------------------------------------------*/
-    
     @objc func hideTheText() {
         
         if self.passwordTextField.isSecureTextEntry { self.passwordTextField.isSecureTextEntry = false }
@@ -438,7 +514,6 @@ class ViewControllerOfRegistartion: UIViewController {
             self.buttonForHidePassword.setImage(UIImage(systemName: "eye.slash"), for: .normal)
         }
     }
-    
     /*------------------------------------------------------------------------------*/
     /*------------------------------------------------------------------------------*/
     
@@ -447,14 +522,24 @@ class ViewControllerOfRegistartion: UIViewController {
     // MARK: - Обработчик нажатия для удаления текста уведомительной метки
     /*------------------------------------------------------------------------------*/
     /*------------------------------------------------------------------------------*/
-    
     @objc func removeTextOfLabelNotice() {
         self.labelNotice.text = ""
     }
-    
     /*------------------------------------------------------------------------------*/
     /*------------------------------------------------------------------------------*/
     
     
 }
 
+
+
+// MARK: - Подписка на протокол "UpdateUsersStorageDelegate" для передачи данных с новыми пользователями от вью контроллера "ViewControllerOfCreatingAccount" в этот вью контроллер
+/*------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------*/
+extension ViewControllerOfRegistartion: UpdateUsersStorageDelegate {
+    func updateUseresStorage(users: [String : User]) {
+        self.registeredUsers = users
+    }
+}
+/*------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------*/

@@ -15,7 +15,7 @@ let iPhone14SceneDiagonal = pow(( pow(iPhone14SceneWidth, 2) + pow(iPhone14Scene
 // MARK: - Buttons
 
 // MARK: Size settings
-let buttonHeight: CGFloat = 50
+let buttonHeight: CGFloat = 45
 let buttonHeightFactor: CGFloat = (buttonHeight / iPhone14SceneHeight)  // Отношение высоты корневого вью к высоте кнопки
 let buttonCornerRadiusFactor: CGFloat = (buttonHeightFactor / 4)  // Отношение коэффициента высоты кнопки к коэффициенту закругления
 

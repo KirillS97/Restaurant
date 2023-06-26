@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED3C215C2A4991D800D499E6 /* UpdateUsersStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3C215B2A4991D800D499E6 /* UpdateUsersStorageProtocol.swift */; };
 		ED5380D22A125E40005FAC3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5380D12A125E40005FAC3F /* AppDelegate.swift */; };
 		ED5380D42A125E40005FAC3F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5380D32A125E40005FAC3F /* SceneDelegate.swift */; };
 		ED5380D62A125E40005FAC3F /* ViewControllerOfRegistartion.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5380D52A125E40005FAC3F /* ViewControllerOfRegistartion.swift */; };
@@ -20,13 +21,16 @@
 		ED5380F02A13858E005FAC3F /* ExtensionForUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5380EF2A13858D005FAC3F /* ExtensionForUIImage.swift */; };
 		ED5380F22A14BCA6005FAC3F /* UIViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5380F12A14BCA6005FAC3F /* UIViews.swift */; };
 		ED5FE5F72A1665C000A7D91B /* ViewControllerOfReservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5FE5F62A1665C000A7D91B /* ViewControllerOfReservation.swift */; };
+		ED672BD12A49772200FF4CE5 /* ViewControllerOfCreatingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED672BD02A49772200FF4CE5 /* ViewControllerOfCreatingAccount.swift */; };
 		ED7AE0F62A1CE3B000C93831 /* ViewControllerOfBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7AE0F52A1CE3B000C93831 /* ViewControllerOfBill.swift */; };
 		ED7AE0F82A1CFE8500C93831 /* ViewControllerOfCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7AE0F72A1CFE8500C93831 /* ViewControllerOfCompletion.swift */; };
+		ED91816A2A486E7800BA134B /* UsersStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9181692A486E7800BA134B /* UsersStorage.swift */; };
 		ED992D512A17848B00E76150 /* ViewControllerOfChoosingTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED992D502A17848B00E76150 /* ViewControllerOfChoosingTable.swift */; };
 		ED9AEA242A1B523B00BEBA4C /* ViewControllerOfMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9AEA232A1B523B00BEBA4C /* ViewControllerOfMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED3C215B2A4991D800D499E6 /* UpdateUsersStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUsersStorageProtocol.swift; sourceTree = "<group>"; };
 		ED5380CE2A125E40005FAC3F /* Restaurant (UIKit HomewWork 4).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Restaurant (UIKit HomewWork 4).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED5380D12A125E40005FAC3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED5380D32A125E40005FAC3F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,8 +46,10 @@
 		ED5380EF2A13858D005FAC3F /* ExtensionForUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionForUIImage.swift; sourceTree = "<group>"; };
 		ED5380F12A14BCA6005FAC3F /* UIViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViews.swift; sourceTree = "<group>"; };
 		ED5FE5F62A1665C000A7D91B /* ViewControllerOfReservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerOfReservation.swift; sourceTree = "<group>"; };
+		ED672BD02A49772200FF4CE5 /* ViewControllerOfCreatingAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerOfCreatingAccount.swift; sourceTree = "<group>"; };
 		ED7AE0F52A1CE3B000C93831 /* ViewControllerOfBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerOfBill.swift; sourceTree = "<group>"; };
 		ED7AE0F72A1CFE8500C93831 /* ViewControllerOfCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerOfCompletion.swift; sourceTree = "<group>"; };
+		ED9181692A486E7800BA134B /* UsersStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersStorage.swift; sourceTree = "<group>"; };
 		ED992D502A17848B00E76150 /* ViewControllerOfChoosingTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerOfChoosingTable.swift; sourceTree = "<group>"; };
 		ED9AEA232A1B523B00BEBA4C /* ViewControllerOfMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerOfMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,6 +101,8 @@
 		ED5380E72A125F94005FAC3F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				ED9181692A486E7800BA134B /* UsersStorage.swift */,
+				ED3C215B2A4991D800D499E6 /* UpdateUsersStorageProtocol.swift */,
 				ED5380E52A125F79005FAC3F /* ModelOfUser.swift */,
 				ED5380E92A126196005FAC3F /* ModelOfFood.swift */,
 				ED5380EB2A1261E2005FAC3F /* ModelOfOrder.swift */,
@@ -107,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				ED5380D52A125E40005FAC3F /* ViewControllerOfRegistartion.swift */,
+				ED672BD02A49772200FF4CE5 /* ViewControllerOfCreatingAccount.swift */,
 				ED5FE5F62A1665C000A7D91B /* ViewControllerOfReservation.swift */,
 				ED992D502A17848B00E76150 /* ViewControllerOfChoosingTable.swift */,
 				ED9AEA232A1B523B00BEBA4C /* ViewControllerOfMenu.swift */,
@@ -188,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED5380EA2A126196005FAC3F /* ModelOfFood.swift in Sources */,
+				ED91816A2A486E7800BA134B /* UsersStorage.swift in Sources */,
 				ED5380F02A13858E005FAC3F /* ExtensionForUIImage.swift in Sources */,
 				ED7AE0F82A1CFE8500C93831 /* ViewControllerOfCompletion.swift in Sources */,
 				ED5380EC2A1261E2005FAC3F /* ModelOfOrder.swift in Sources */,
@@ -199,7 +209,9 @@
 				ED5380E62A125F79005FAC3F /* ModelOfUser.swift in Sources */,
 				ED5380D22A125E40005FAC3F /* AppDelegate.swift in Sources */,
 				ED992D512A17848B00E76150 /* ViewControllerOfChoosingTable.swift in Sources */,
+				ED3C215C2A4991D800D499E6 /* UpdateUsersStorageProtocol.swift in Sources */,
 				ED5380D42A125E40005FAC3F /* SceneDelegate.swift in Sources */,
+				ED672BD12A49772200FF4CE5 /* ViewControllerOfCreatingAccount.swift in Sources */,
 				ED5380F22A14BCA6005FAC3F /* UIViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Xg-Oc-wPw">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,7 +29,7 @@
         <!--View Controller Of Registartion-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ViewControllerOfRegistartion" id="BYZ-38-t0r" customClass="ViewControllerOfRegistartion" customModule="UIKit_Home_work_4__Programmatically" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewControllerOfRegistartion" id="BYZ-38-t0r" customClass="ViewControllerOfRegistartion" customModule="Restaurant__UIKit_HomewWork_4_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -48,7 +48,7 @@
         <!--View Controller Of Reservation-->
         <scene sceneID="0Gz-UW-BuW">
             <objects>
-                <viewController storyboardIdentifier="ViewControllerOfReservation" id="zY5-lc-a6P" customClass="ViewControllerOfReservation" customModule="UIKit_Home_work_4__Programmatically" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewControllerOfReservation" id="zY5-lc-a6P" customClass="ViewControllerOfReservation" customModule="Restaurant__UIKit_HomewWork_4_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Urw-5d-Ubt">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -66,10 +66,25 @@
             </objects>
             <point key="canvasLocation" x="1820.6106870229007" y="-2.1126760563380285"/>
         </scene>
+        <!--View Controller Of Creating Account-->
+        <scene sceneID="6an-2s-QpS">
+            <objects>
+                <viewController storyboardIdentifier="ViewControllerOfCreatingAccount" id="GCw-ct-ee3" customClass="ViewControllerOfCreatingAccount" customModule="Restaurant__UIKit_HomewWork_4_" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9hv-6f-Ijx">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="5Zy-lI-uqz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ea-Za-Z32" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1004" y="744"/>
+        </scene>
         <!--View Controller Of Choosing Table-->
         <scene sceneID="iOJ-1P-GtF">
             <objects>
-                <viewController storyboardIdentifier="ViewControllerOfChoosingTable" id="cbX-v9-EiF" customClass="ViewControllerOfChoosingTable" customModule="UIKit_Home_work_4__Programmatically" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewControllerOfChoosingTable" id="cbX-v9-EiF" customClass="ViewControllerOfChoosingTable" customModule="Restaurant__UIKit_HomewWork_4_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uz5-DR-Wle">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -85,7 +100,7 @@
         <!--View Controller Of Menu-->
         <scene sceneID="NQ0-zb-Asp">
             <objects>
-                <viewController storyboardIdentifier="ViewControllerOfMenu" id="obp-7g-5R4" customClass="ViewControllerOfMenu" customModule="UIKit_Home_work_4__Programmatically" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewControllerOfMenu" id="obp-7g-5R4" customClass="ViewControllerOfMenu" customModule="Restaurant__UIKit_HomewWork_4_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nPR-Re-JaL">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -101,7 +116,7 @@
         <!--View Controller Of Bill-->
         <scene sceneID="2WT-VF-ynd">
             <objects>
-                <viewController storyboardIdentifier="ViewControllerOfBill" id="ZjM-NK-yXx" customClass="ViewControllerOfBill" customModule="UIKit_Home_work_4__Programmatically" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewControllerOfBill" id="ZjM-NK-yXx" customClass="ViewControllerOfBill" customModule="Restaurant__UIKit_HomewWork_4_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="A3j-1C-gV9">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -117,7 +132,7 @@
         <!--View Controller Of Completion-->
         <scene sceneID="YaL-3k-FLE">
             <objects>
-                <viewController storyboardIdentifier="ViewControllerOfCompletion" id="gvi-le-WvM" customClass="ViewControllerOfCompletion" customModule="UIKit_Home_work_4__Programmatically" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewControllerOfCompletion" id="gvi-le-WvM" customClass="ViewControllerOfCompletion" customModule="Restaurant__UIKit_HomewWork_4_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IaN-kV-KrX">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
